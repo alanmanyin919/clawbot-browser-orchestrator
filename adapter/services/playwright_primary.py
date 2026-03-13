@@ -24,6 +24,9 @@ class PlaywrightPrimaryService:
     """Primary browser service backed by a local Playwright MCP server."""
 
     REQUIRED_TOOLS = {"browser_navigate", "browser_run_code"}
+    
+    # Default CDP URL
+    DEFAULT_CDP_URL = os.getenv("CDP_URL", "http://127.0.0.1:9222")
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
@@ -39,6 +42,11 @@ class PlaywrightPrimaryService:
         )
         self.headless = self._parse_bool(
             self.config.get("headless", os.getenv("PLAYWRIGHT_HEADLESS", "true"))
+        )
+        # CDP connection - use external browser if available
+        self.cdp_url = self.config.get("cdp_url", self.DEFAULT_CDP_URL)
+        self.use_external_browser = self._parse_bool(
+            self.config.get("use_external_browser", os.getenv("USE_EXTERNAL_BROWSER", "true"))
         )
         self._validated_tools: Optional[set[str]] = None
         self._import_error: Optional[str] = None

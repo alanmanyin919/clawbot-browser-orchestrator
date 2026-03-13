@@ -21,6 +21,9 @@ logger = get_logger("browser-use-fallback")
 class BrowserUseFallbackService:
     """Fallback browser service backed by browser-use."""
 
+    # Default CDP URL - can be overridden via config
+    DEFAULT_CDP_URL = os.getenv("CDP_URL", "http://127.0.0.1:9222")
+
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.provider = self.config.get("provider", os.getenv("LLM_PROVIDER", "minimax"))
@@ -34,6 +37,11 @@ class BrowserUseFallbackService:
         self.max_retries = int(self.config.get("max_retries", os.getenv("MINIMAX_MAX_RETRIES", "2")))
         self.headless = self._parse_bool(
             self.config.get("headless", os.getenv("PLAYWRIGHT_HEADLESS", "true"))
+        )
+        # CDP connection - use external browser if available
+        self.cdp_url = self.config.get("cdp_url", self.DEFAULT_CDP_URL)
+        self.use_external_browser = self._parse_bool(
+            self.config.get("use_external_browser", os.getenv("USE_EXTERNAL_BROWSER", "true"))
         )
 
     async def initialize(self) -> bool:
@@ -145,7 +153,12 @@ class BrowserUseFallbackService:
                     "max_retries": self.max_retries,
                 },
             )
-            browser = Browser(config=BrowserConfig(headless=self.headless))
+            browser = Browser(
+                config=BrowserConfig(
+                    headless=self.headless,
+                    cdp_url=self.cdp_url if self.use_external_browser else None
+                )
+            )
             try:
                 agent = Agent(task=task, llm=llm, browser=browser)
                 history = await asyncio.wait_for(

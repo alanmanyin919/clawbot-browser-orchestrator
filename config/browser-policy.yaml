@@ -1,6 +1,13 @@
 # Browser Routing Policy
 # Defines which backend is preferred for each tool family
 
+# CDP Configuration - shared across all browser backends
+cdp:
+  enabled: true
+  url: "http://127.0.0.1:9222"
+  # Set to false to let each tool launch its own browser (legacy mode)
+  use_external_browser: true
+
 # Primary backend configuration
 primary:
   name: "better-browser-use"
@@ -11,6 +18,9 @@ primary:
   max_steps: 12
   timeout_seconds: 90
   max_retries: 2
+  # CDP settings inherited from global cdp config
+  use_external_browser: true
+  cdp_url: "http://127.0.0.1:9222"
 
 # Secondary backend configuration
 fallback:
@@ -21,6 +31,9 @@ fallback:
   headless: true
   timeout_seconds: 45
   max_retries: 1
+  # CDP settings
+  use_external_browser: true
+  cdp_url: "http://127.0.0.1:9222"
 
 # Fallback triggers - when to use fallback
 fallback_triggers:
