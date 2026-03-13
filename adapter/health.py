@@ -6,59 +6,59 @@ import time
 from .schemas import HealthStatus
 from .logging_config import get_logger
 from .services.playwright_primary import PlaywrightPrimaryService
-from .services.browser_use_fallback import BrowserUseFallbackService
+from .services.browser_use import BrowserUseService
 
 logger = get_logger("health")
 
 
 class HealthChecker:
-    """Monitors health of the main browser-use backend and Playwright secondary backend."""
+    """Monitors health of browser-use and Playwright backends."""
     
     def __init__(self):
         self.start_time = time.time()
-        self.primary_available = False
-        self.fallback_available = False
-        self.primary_service = BrowserUseFallbackService()
-        self.fallback_service = PlaywrightPrimaryService()
+        self.browser_use_available = False
+        self.playwright_available = False
+        self.browser_use_service = BrowserUseService()
+        self.playwright_service = PlaywrightPrimaryService()
     
-    async def check_primary(self) -> bool:
+    async def check_browser_use(self) -> bool:
         """Check if browser-use is available."""
         try:
-            self.primary_available = self.primary_service.check_ready()
-            return self.primary_available
+            self.browser_use_available = self.browser_use_service.check_ready()
+            return self.browser_use_available
         except Exception as e:
-            logger.warning(f"Primary health check failed: {e}")
-            self.primary_available = False
+            logger.warning(f"browser-use health check failed: {e}")
+            self.browser_use_available = False
             return False
     
-    async def check_fallback(self) -> bool:
+    async def check_playwright(self) -> bool:
         """Check if Playwright MCP is available."""
         try:
-            self.fallback_available = await self.fallback_service.initialize()
-            return self.fallback_available
+            self.playwright_available = await self.playwright_service.initialize()
+            return self.playwright_available
         except Exception as e:
-            logger.warning(f"Fallback health check failed: {e}")
-            self.fallback_available = False
+            logger.warning(f"Playwright health check failed: {e}")
+            self.playwright_available = False
             return False
     
     async def check_health(self) -> HealthStatus:
         """Get overall health status."""
-        primary_ok = await self.check_primary()
-        fallback_ok = await self.check_fallback()
+        browser_use_ok = await self.check_browser_use()
+        playwright_ok = await self.check_playwright()
         
         uptime = time.time() - self.start_time
         
-        if primary_ok and fallback_ok:
+        if browser_use_ok and playwright_ok:
             status = "healthy"
-        elif primary_ok or fallback_ok:
+        elif browser_use_ok or playwright_ok:
             status = "degraded"
         else:
             status = "unhealthy"
         
         return HealthStatus(
             status=status,
-            primary=primary_ok,
-            fallback=fallback_ok,
+            primary=browser_use_ok,
+            fallback=playwright_ok,
             uptime_seconds=uptime
         )
 

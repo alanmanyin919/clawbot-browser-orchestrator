@@ -8,7 +8,7 @@ from pathlib import Path
 
 from .schemas import BrowserResult, Metadata
 from .services.playwright_primary import PlaywrightPrimaryService
-from .services.browser_use_fallback import BrowserUseFallbackService
+from .services.browser_use import BrowserUseService
 from .logging_config import get_logger
 
 logger = get_logger("router")
@@ -27,14 +27,14 @@ class BrowserRouter:
             self.policy = self._default_policy()
         
         # Main backend is browser-use. Secondary backend is Playwright.
-        self.primary = BrowserUseFallbackService(self.policy.get("primary", {}))
-        self.fallback = PlaywrightPrimaryService(self.policy.get("fallback", {}))
+        self.browser_use = BrowserUseService(self.policy.get("browser_use", {}))
+        self.playwright = PlaywrightPrimaryService(self.policy.get("playwright", {}))
         
         # Config
-        self.max_retries = self.policy.get("primary", {}).get("max_retries", 2)
+        self.max_retries = self.policy.get("browser_use", {}).get("max_retries", 2)
         self.fallback_enabled = True
-        self.primary_available = False
-        self.fallback_available = False
+        self.browser_use_available = False
+        self.playwright_available = False
         
         self._initialized = False
     
@@ -71,15 +71,15 @@ class BrowserRouter:
         logger.info("Initializing browser router...")
         
         # Initialize main backend (browser-use)
-        primary_ok = await self.primary.initialize()
-        self.primary_available = primary_ok
-        logger.info(f"Primary backend: {'OK' if primary_ok else 'FAILED'}")
+        browser_use_ok = await self.browser_use.initialize()
+        self.browser_use_available = browser_use_ok
+        logger.info(f"browser-use backend: {'OK' if browser_use_ok else 'FAILED'}")
         
         # Initialize secondary backend (Playwright)
-        fallback_ok = await self.fallback.initialize()
-        self.fallback_available = fallback_ok
-        self.fallback_enabled = fallback_ok
-        logger.info(f"Fallback backend: {'OK' if fallback_ok else 'FAILED'}")
+        playwright_ok = await self.playwright.initialize()
+        self.playwright_available = playwright_ok
+        self.fallback_enabled = playwright_ok
+        logger.info(f"Playwright backend: {'OK' if playwright_ok else 'FAILED'}")
         
         self._initialized = True
         logger.info("Browser router initialized")
@@ -87,8 +87,8 @@ class BrowserRouter:
     def _preferred_backend(self, tool_name: str) -> Tuple[Any, Any]:
         """Return preferred and secondary backends for a tool."""
         if tool_name in {"open_page", "extract_page"}:
-            return self.fallback, self.primary
-        return self.primary, self.fallback
+            return self.playwright, self.browser_use
+        return self.browser_use, self.playwright
 
     def _should_use_secondary(self, result: BrowserResult, tool_name: str = "") -> bool:
         """
@@ -215,8 +215,8 @@ class BrowserRouter:
     
     async def close(self):
         """Clean up resources."""
-        await self.primary.close()
-        await self.fallback.close()
+        await self.browser_use.close()
+        await self.playwright.close()
 
 
 # Global router instance

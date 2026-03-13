@@ -1,5 +1,5 @@
 """
-browser-use fallback service.
+browser-use service.
 
 This implementation runs browser-use in-process and uses an OpenAI-compatible
 model configuration, which can point at MiniMax.
@@ -15,11 +15,11 @@ from ..llm_factory import LLMConfigurationError, create_llm, resolve_llm_setting
 from ..logging_config import get_logger
 from ..schemas import BrowserResult, Metadata
 
-logger = get_logger("browser-use-fallback")
+logger = get_logger("browser-use")
 
 
-class BrowserUseFallbackService:
-    """Fallback browser service backed by browser-use."""
+class BrowserUseService:
+    """Browser service backed by browser-use."""
 
     # Default CDP URL - can be overridden via config
     DEFAULT_CDP_URL = os.getenv("CDP_URL", "http://127.0.0.1:9222")

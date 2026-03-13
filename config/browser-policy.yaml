@@ -8,9 +8,9 @@ cdp:
   # Set to false to let each tool launch its own browser (legacy mode)
   use_external_browser: true
 
-# Primary backend configuration
-primary:
-  name: "better-browser-use"
+# Primary backend configuration (browser-use)
+browser_use:
+  name: "browser-use"
   provider: "minimax"
   model: "MiniMax-M2.5"
   base_url: "https://api.minimax.io/v1"
@@ -22,8 +22,8 @@ primary:
   use_external_browser: true
   cdp_url: "http://127.0.0.1:9222"
 
-# Secondary backend configuration
-fallback:
+# Secondary backend configuration (Playwright MCP)
+playwright:
   name: "playwright-mcp"
   command: "npx"
   args:
