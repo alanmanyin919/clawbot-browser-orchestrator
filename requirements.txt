@@ -8,5 +8,5 @@ playwright>=1.40.0
 pyyaml>=6.0
 loguru>=0.7.0
 mcp>=1.0.0,<2.0.0
-browser-use>=0.1.0
+git+https://github.com/alanmanyin919/browser-use.git@fix/issue-4142git#egg=browser-use
 pytest>=8.0.0
