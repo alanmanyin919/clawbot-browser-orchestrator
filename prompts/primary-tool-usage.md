@@ -17,6 +17,14 @@
 - ✅ Good default for agentic tasks
 - ✅ Main access path in this project
 
+## Router Behavior
+
+You normally do not call `browser-use` directly.
+
+- Use the orchestrator tool that matches the task
+- The router usually sends `web_search`, `read_top_results`, and `navigate_and_extract` to `browser-use`
+- If the result is weak or failed, the router may retry with Playwright
+
 ## Usage Examples
 
 ### Web Search

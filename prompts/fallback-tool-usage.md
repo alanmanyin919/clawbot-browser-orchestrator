@@ -18,7 +18,7 @@ The router prefers Playwright for direct page-access tasks and also uses it as t
 - Direct URL loading
 - Single-page extraction
 - Fast page metadata retrieval
-- Secondary fallback when `browser-use` underperforms
+- Secondary path when `browser-use` underperforms
 
 ## What It Returns
 
