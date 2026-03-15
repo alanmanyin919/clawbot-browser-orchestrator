@@ -172,6 +172,7 @@ python3 scripts/smoke_minimax.py
 - [docs/architecture.md](docs/architecture.md)
 - [docs/routing-policy.md](docs/routing-policy.md)
 - [docs/troubleshooting.md](docs/troubleshooting.md)
+- [tests/demo_tasks.md](tests/demo_tasks.md) (Clawbot Chromium test instructions)
 
 ## Next Implementation Steps
 
