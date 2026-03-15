@@ -18,7 +18,8 @@ When running `read_top_results`, the primary browser-use sometimes fails and fal
 
 ### Workaround
 - browser-use (primary) works correctly
-- The issue only affects fallback scenarios
+- Playwright secondary fallback is now disabled for `web_search`, `read_top_results`, and `navigate_and_extract`
+- Playwright remains preferred only for `open_page` and `extract_page`
 
 ---
 

@@ -168,11 +168,14 @@ python3 scripts/smoke_minimax.py
 
 ## Documentation
 
+- [docs/onboarding.md](docs/onboarding.md)
 - [docs/setup.md](docs/setup.md)
 - [docs/architecture.md](docs/architecture.md)
 - [docs/routing-policy.md](docs/routing-policy.md)
 - [docs/troubleshooting.md](docs/troubleshooting.md)
 - [tests/demo_tasks.md](tests/demo_tasks.md) (Clawbot Chromium test instructions)
+- [prompts/clawbot-browser-policy.md](prompts/clawbot-browser-policy.md)
+- [prompts/browser-use-testing.md](prompts/browser-use-testing.md)
 
 ## Next Implementation Steps
 

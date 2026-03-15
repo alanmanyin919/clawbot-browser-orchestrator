@@ -84,11 +84,11 @@ class BrowserRouter:
         self._initialized = True
         logger.info("Browser router initialized")
     
-    def _preferred_backend(self, tool_name: str) -> Tuple[Any, Any]:
+    def _preferred_backend(self, tool_name: str) -> Tuple[Any, Optional[Any]]:
         """Return preferred and secondary backends for a tool."""
         if tool_name in {"open_page", "extract_page"}:
             return self.playwright, self.browser_use
-        return self.browser_use, self.playwright
+        return self.browser_use, None
 
     def _should_use_secondary(self, result: BrowserResult, tool_name: str = "") -> bool:
         """
@@ -99,6 +99,9 @@ class BrowserRouter:
         - Extraction was incomplete
         - Navigation got stuck
         """
+        if tool_name not in {"open_page", "extract_page"}:
+            return False
+
         if not self.fallback_enabled:
             return False
         
@@ -138,7 +141,7 @@ class BrowserRouter:
         if result.status in ["blocked", "restricted"]:
             return result
 
-        if self._should_use_secondary(result, tool_name):
+        if secondary is not None and self._should_use_secondary(result, tool_name):
             logger.info("Router: Trying secondary backend")
             result = await getattr(secondary, tool_name)(*args)
             result = self._check_stop_conditions(result)
