@@ -2,7 +2,7 @@
 
 ## Start Here
 
-Use this document as the entry point for a new Clawbot or operator working with the browser orchestrator.
+Use this document as the entry point for a new operator, developer, or agent integrator working with the browser orchestrator.
 
 The goal is simple:
 
@@ -12,9 +12,9 @@ The goal is simple:
 
 ## What The Orchestrator Is
 
-The orchestrator is the control layer between Clawbot and the browser backends.
+The orchestrator is the control layer between an agent/client and the browser backends.
 
-- Clawbot chooses a browser tool
+- The agent or client chooses a browser tool
 - The orchestrator routes the request
 - `browser-use` handles search, research, and multi-step browsing
 - Playwright handles direct page open and extraction
@@ -53,7 +53,7 @@ Open:
 - [adapter/app.py](../adapter/app.py)
 - [adapter/router.py](../adapter/router.py)
 
-### I want to know how Clawbot should use the tools
+### I want to know how an agent should use the tools
 
 Open:
 
@@ -105,7 +105,7 @@ Important rule:
 - Ask the human to complete credentials or verification in the UI
 - Resume only after the human confirms completion
 
-### I need to inspect what Clawbot did
+### I need to inspect what the agent did
 
 Open:
 
@@ -114,7 +114,7 @@ Open:
 Important rule:
 
 - Local activity logs should be written under `logs/`
-- Recommended file: `logs/clawbot-activity.log`
+- Recommended file: `logs/agent-activity.log`
 - These logs are local-only and must not be committed
 
 ### A test failed and I need known issues
@@ -146,7 +146,7 @@ Open:
 - [adapter/services/browser_use.py](../adapter/services/browser_use.py)
 - [adapter/services/playwright_primary.py](../adapter/services/playwright_primary.py)
 
-### For Clawbot prompt maintenance
+### For prompt maintenance
 
 - [clawbot-browser-policy.md](../prompts/clawbot-browser-policy.md)
 - [primary-tool-usage.md](../prompts/primary-tool-usage.md)

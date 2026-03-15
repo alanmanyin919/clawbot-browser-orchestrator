@@ -1,6 +1,6 @@
-# Clawbot Test Instructions: Browser-Use Orchestrator (Chromium)
+# Test Instructions: Browser-Use Orchestrator (Chromium)
 
-This guide is the **end-to-end test playbook** for Clawbot against the browser orchestrator in this repository.
+This guide is the **end-to-end test playbook** for exercising the browser orchestrator in this repository.
 
 > **Browser requirement**: run all browser automation tests with **Chromium**.
 
@@ -81,7 +81,7 @@ Start Chromium with remote debugging on port `9222` (CDP). Example:
 ```bash
 chromium \
   --remote-debugging-port=9222 \
-  --user-data-dir=/tmp/clawbot-browser \
+  --user-data-dir=/tmp/orchestrator-browser \
   --no-first-run \
   --no-default-browser-check \
   --disable-dev-shm-usage \
@@ -271,7 +271,7 @@ These validate schemas, router behavior, and provider wiring independent of live
 
 ---
 
-## 10) Reporting template for Clawbot test runs
+## 10) Reporting template for test runs
 
 For each test run, record:
 

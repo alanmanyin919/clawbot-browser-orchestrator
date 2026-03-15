@@ -2,10 +2,10 @@
 
 ## Overview
 
-The Browser Orchestrator provides a unified browser automation interface for Clawbot.
+The Browser Orchestrator provides a unified browser automation interface for agents and automation clients.
 
 ```text
-Clawbot / LLM
+Agent / LLM / Client
   -> MCP Tool Interface
   -> Router Layer
      -> Main backend: browser-use

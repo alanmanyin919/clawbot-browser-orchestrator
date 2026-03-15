@@ -116,7 +116,7 @@ class RSSSearchService:
         try:
             req = urllib.request.Request(
                 url, 
-                headers={'User-Agent': 'Mozilla/5.0 (compatible; OpenClaw/1.0)'}
+                headers={'User-Agent': 'Mozilla/5.0 (compatible; BrowserOrchestrator/1.0)'}
             )
             with urllib.request.urlopen(req, timeout=10) as response:
                 data = response.read()

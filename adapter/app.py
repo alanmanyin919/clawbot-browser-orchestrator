@@ -31,7 +31,7 @@ logger = get_logger("app")
 
 # Create FastAPI app
 app = FastAPI(
-    title="Clawbot Browser Orchestrator",
+    title="Browser Orchestrator",
     description="Browser automation MCP stack with browser-use as main access and Playwright for direct page access",
     version="1.0.0"
 )

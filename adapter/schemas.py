@@ -20,7 +20,7 @@ class BrowserResult(BaseModel):
     Standardized result format returned by all browser tools.
     
     This schema ensures both Playwright MCP and browser-use
-    return consistent output that Clawbot can process uniformly.
+    return consistent output that any agent or client can process uniformly.
     """
     status: Literal["success", "failed", "blocked", "restricted"] = "success"
     backend: Literal["playwright-mcp", "better-browser-use"] = "playwright-mcp"

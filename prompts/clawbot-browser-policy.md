@@ -1,6 +1,6 @@
-# Clawbot Browser Policy
+# Agent Browser Policy
 
-## For Clawbot/LLM Agents
+## For Agents And LLM Clients
 
 When you need browser automation, use this orchestrator.
 
@@ -8,7 +8,7 @@ When you need browser automation, use this orchestrator.
 
 Use these documents depending on the situation:
 
-- New operator or new Clawbot entry point: [docs/onboarding.md](../docs/onboarding.md)
+- New operator or new agent entry point: [docs/onboarding.md](../docs/onboarding.md)
 - How the system works: [docs/architecture.md](../docs/architecture.md)
 - Routing behavior: [docs/routing-policy.md](../docs/routing-policy.md)
 - How to test `browser-use`: [browser-use-testing.md](./browser-use-testing.md)
@@ -50,7 +50,7 @@ If using external browser mode, start local Chrome with CDP on port `9222`, then
 When testing or debugging, write a local activity log on the orchestrator host so operators can inspect what happened later.
 
 - Store logs under `logs/`
-- Recommended file: `logs/clawbot-activity.log`
+- Recommended file: `logs/agent-activity.log`
 - These logs are local-only and should not be committed to git
 
 Each log entry should include:

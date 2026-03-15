@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use this prompt when Clawbot needs to verify whether `browser-use` is working correctly.
+Use this prompt when an agent or operator needs to verify whether `browser-use` is working correctly.
 
 Do not jump straight to Google or to a site-specific conclusion. Test in stages so the failure can be classified correctly.
 
@@ -126,7 +126,7 @@ Do not try to bypass credentials, CAPTCHA, or human verification.
 When testing, write a local operator-readable activity log:
 
 - Directory: `logs/`
-- Recommended file: `logs/clawbot-activity.log`
+- Recommended file: `logs/agent-activity.log`
 - Do not commit these logs
 
 Each entry should include:

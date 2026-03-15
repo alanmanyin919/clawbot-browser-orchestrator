@@ -1,6 +1,6 @@
-# Clawbot Browser Orchestrator
+# Browser Orchestrator
 
-Browser orchestration layer for Clawbot/OpenClaw. This service exposes a single MCP-style HTTP surface and routes browser tasks between a main `browser-use` backend and a secondary Playwright MCP backend for direct page access.[1][2]
+Browser orchestration layer for AI agents and automation clients. This service exposes a single MCP-style HTTP surface and routes browser tasks between a main `browser-use` backend and a secondary Playwright MCP backend for direct page access.[1][2]
 
 ## Status
 
@@ -15,10 +15,10 @@ If you use this repo today, treat it as a documented starter project rather than
 
 ## What This Project Does
 
-The orchestrator gives Clawbot a consistent interface for browser actions:
+The orchestrator gives agents and automation clients a consistent interface for browser actions:
 
 ```text
-Clawbot / LLM
+Agent / LLM / Client
   -> Browser Orchestrator API
   -> Router
      -> Main: browser-use
@@ -50,7 +50,7 @@ The normalized response model lives in [adapter/schemas.py](adapter/schemas.py).
 ## Repository Layout
 
 ```text
-clawbot-browser-orchestrator/
+browser-orchestrator/
 ├── adapter/              # FastAPI app, router, schemas, service wrappers
 ├── config/               # Routing policy, app config, MCP config
 ├── docs/                 # Setup, architecture, routing, troubleshooting
@@ -173,8 +173,8 @@ python3 scripts/smoke_minimax.py
 - [docs/architecture.md](docs/architecture.md)
 - [docs/routing-policy.md](docs/routing-policy.md)
 - [docs/troubleshooting.md](docs/troubleshooting.md)
-- [tests/demo_tasks.md](tests/demo_tasks.md) (Clawbot Chromium test instructions)
-- [prompts/clawbot-browser-policy.md](prompts/clawbot-browser-policy.md)
+- [tests/demo_tasks.md](tests/demo_tasks.md) (Chromium test instructions)
+- [prompts/clawbot-browser-policy.md](prompts/clawbot-browser-policy.md) (general agent policy)
 - [prompts/browser-use-testing.md](prompts/browser-use-testing.md)
 
 ## Next Implementation Steps
